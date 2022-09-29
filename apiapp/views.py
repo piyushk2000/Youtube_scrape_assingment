@@ -6,12 +6,14 @@ import pandas as pd
 import threading
 
 
-
+# putting api and making youtub build
 
 api_key = 'AIzaSyD614qA-m4LXimwdSo9kqoW1BaPOOMZujg'
 
 youtube = build('youtube', 'v3', developerKey=api_key)
 
+
+# query to fetch the desired field and store it in database 
 
 def savedata():
 
@@ -36,8 +38,11 @@ def savedata():
         data= APIData(vid_id = vid_id ,vid_title = vid_title , vid_publishDate=vid_publishDate ,vid_description = vid_description ,logo_url=logo_url)
         data.save()
 
+    # to run every 20 sec
     threading.Timer(20, savedata).start()
 
+
+# homepage called at start
 def index(request):
 
     savedata()

@@ -1,6 +1,9 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
 
+# making the models 
+# vid_id is primary key
+
 class APIData(models.Model):
 
     vid_id = models.CharField(max_length=50, primary_key=True )
