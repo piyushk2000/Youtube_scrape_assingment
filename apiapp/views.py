@@ -4,6 +4,22 @@ from .models import APIData
 from googleapiclient.discovery import build
 import pandas as pd
 import threading
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
+from .serializers import DataSerializer
+
+# @csrf_exempt
+# def departmentApi(request,id=0):
+#     if request.method=='GET':
+#         departments = APIData.objects.all()
+#         departments_serializer=DataSerializer(departments,many=True)
+#         return JsonResponse(departments_serializer.data,safe=False)
+
+
+
+
 
 
 # putting api and making youtub build
@@ -39,11 +55,19 @@ def savedata():
         data.save()
 
     # to run every 20 sec
-    threading.Timer(20, savedata).start()
+    threading.Timer(5, savedata).start()
 
 
 # homepage called at start
-def index(request):
+@csrf_exempt
+def getData(request):
+    if request.method=='GET':
+        departments = APIData.objects.all()
+        departments_serializer=DataSerializer(departments,many=True)
+        return JsonResponse(departments_serializer.data,safe=False)
 
+
+def index(request):
     savedata()
+
     return render(request , 'index.html') 
