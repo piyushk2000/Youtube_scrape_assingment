@@ -1,6 +1,6 @@
 # Youtube_scrape_assingment
 
-start command python manage.py runserver 
+start command - python manage.py runserver 
 
 open site at 
 http://127.0.0.1:8000/
